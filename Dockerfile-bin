@@ -1,0 +1,31 @@
+FROM ubuntu:20.04
+
+ARG VERSION
+
+COPY "gcc-${VERSION}-GNURL78-ELF.run" /tmp/installer.run
+
+RUN set -x \
+    && dpkg --add-architecture i386 \
+    && apt-get update \
+    && apt-get install --yes --no-install-recommends \
+       # Required for installer
+       libc6:i386 \
+       # Required for the compiler
+       libtinfo5 \
+       libncurses5 \
+       libpython2.7 \
+       zlib1g \
+       # Build tools
+       make \
+       git \
+       srecord \
+    && chmod +x /tmp/installer.run \
+    && /tmp/installer.run -p /opt/rl78-elf-gcc -y \
+    && mkdir /src \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV PATH=${PATH}:/opt/rl78-elf-gcc/bin
+
+VOLUME /src
+WORKDIR /src
