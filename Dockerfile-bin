@@ -19,6 +19,7 @@ RUN set -x \
        make \
        git \
        srecord \
+       splint \
     && chmod +x /tmp/installer.run \
     && /tmp/installer.run -p /opt/rl78-elf-gcc -y \
     && mkdir /src \

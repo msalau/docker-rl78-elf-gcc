@@ -51,6 +51,7 @@ Tools pre-installed in the image:
 * make
 * git
 * srecord
+* splint
 * rl78-elf-gcc
 
 The toolchain is installed into `/opt/rl78-elf-gcc` and is added to `PATH`.

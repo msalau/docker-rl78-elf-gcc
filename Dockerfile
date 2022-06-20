@@ -87,6 +87,7 @@ RUN set -x \
         make \
         git \
         srecord \
+        splint \
         libgmp10 \
         libmpc3 \
         libmpfr4 \
