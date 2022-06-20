@@ -43,7 +43,7 @@ RUN set -x \
     && cd build-binutils \
     && ../binutils/configure --target=rl78-elf --prefix=/opt/rl78-elf-gcc --disable-nls --disable-werror \
     && make \
-    && make install
+    && make install-strip
 
 RUN set -x \
     && cd /ws \
@@ -51,7 +51,7 @@ RUN set -x \
     && cd build-gcc \
     && ../gcc/configure --target=rl78-elf --prefix=/opt/rl78-elf-gcc --disable-nls --disable-werror --enable-languages=c,c++ --disable-shared --enable-lto --with-newlib \
     && make all-gcc \
-    && make install-gcc
+    && make install-strip-gcc
 
 RUN set -x \
     && cd /ws \
@@ -65,7 +65,7 @@ RUN set -x \
     && cd /ws \
     && cd build-gcc \
     && make \
-    && make install
+    && make install-strip
 
 RUN set -x \
     && cd /ws \
@@ -73,7 +73,9 @@ RUN set -x \
     && cd build-gdb \
     && ../gdb/configure --target=rl78-elf --prefix=/opt/rl78-elf-gcc --disable-nls --disable-werror \
     && make \
-    && make install
+    && make install \
+    && strip --strip-unneeded /opt/rl78-elf-gcc/bin/rl78-elf-gdb \
+    && strip --strip-unneeded /opt/rl78-elf-gcc/bin/rl78-elf-run
 
 FROM ubuntu:16.04
 
